@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jan Kowalski — Senior UI/UX Designer</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --surface-color: #111827;
+            --surface-card: #1f2937;
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --border-color: #374151;
+            --accent: #a855f7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--text-main);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--primary);
+        }
+
+        .cta-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.3s ease, transform 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 10%;
+            position: relative;
+            background: radial-gradient(circle at 80% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 20% 80%, rgba(168, 85, 247, 0.1) 0%, transparent 40%);
+        }
+
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--primary);
+            padding: 0.4rem 1rem;
+            border-radius: 50px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--text-main) 30%, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        /* Sections General */
+        section {
+            padding: 6rem 10%;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--primary);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .project-img {
+            width: 100%;
+            height: 220px;
+            background: var(--surface-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-muted);
+            font-weight: 600;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-img img {
+            transform: scale(1.05);
+        }
+
+        .project-info {
+            padding: 1.5rem;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+        }
+
+        .project-info h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: gap 0.2s ease;
+        }
+
+        .project-link:hover {
+            gap: 0.6rem;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .skill-item {
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-item span {
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--surface-color);
+            border: 1px solid var(--border-color);
+            padding: 2.5rem;
+            border-radius: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            background: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            height: 120px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: var(--primary-hover);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            section {
+                padding: 4rem 5%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Nagłówek i Nawigacja -->
+    <header>
+        <a href="#" class="logo">Jan<span>.UX</span></a>
+        <nav>
+            <ul>
+                <li><a href="#projekty">Projekty</a></li>
+                <li><a href="#o-mnie">O mnie</a></li>
+                <li><a href="#kontakt">Kontakt</a></li>
+            </ul>
+        </nav>
+        <a href="#kontakt" class="cta-btn">Współpraca</a>
+    </header>
+
+    <!-- Sekcja Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="badge">✨ Senior UI/UX Designer & Product Strategist</div>
+            <h1>Projektuję cyfrowe doświadczenia, które <span>urzekają i konwertują</span></h1>
+            <p>Pomagam startupom i markom przekształcać złożone problemy w proste, intuicyjne i piękne interfejsy produktów.</p>
+            <div class="hero-buttons">
+                <a href="#projekty" class="cta-btn">Zobacz projekty</a>
+                <a href="#kontakt" class="btn-secondary">Porozmawiajmy</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sekcja Projekty -->
+    <section id="projekty">
+        <h2 class="section-title">Wybrane <span>Realizacje</span></h2>
+        <div class="projects-grid">
+            <!-- Projekt 1 -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80" alt="Fintech App">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag">UI/UX</span>
+                        <span class="tag">Mobile App</span>
+                        <span class="tag">Fintech</span>
+                    </div>
+                    <h3>Aplikacja Bankowości Mobilnej</h3>
+                    <p>Kompleksowy redesign systemu płatności i zarządzania budżetem dla ponad 2M użytkowników.</p>
+                    <a href="#" class="project-link">Zobacz Case Study &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt 2 -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="SaaS Dashboard">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag">Dashboard</span>
+                        <span class="tag">SaaS</span>
+                        <span class="tag">Design System</span>
+                    </div>
+                    <h3>Panel Analityczny SaaS</h3>
+                    <p>Stworzenie intuicyjnego panelu B2B wraz z unikalnym systemem designu (Design System).</p>
+                    <a href="#" class="project-link">Zobacz Case Study &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Projekt 3 -->
+            <div class="project-card">
+                <div class="project-img">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80" alt="E-commerce UX">
+                </div>
+                <div class="project-info">
+                    <div class="project-tags">
+                        <span class="tag">E-commerce</span>
+                        <span class="tag">UX Research</span>
+                        <span class="tag">Web</span>
+                    </div>
+                    <h3>Platforma E-commerce Premium</h3>
+                    <p>Optymalizacja ścieżki zakupowej i wzrost konwersji o 34% dla marki modowej.</p>
+                    <a href="#" class="project-link">Zobacz Case Study &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sekcja O mnie -->
+    <section id="o-mnie">
+        <h2 class="section-title">Kim <span>jestem?</span></h2>
+        <div class="about-grid">
+            <div class="about-text">
+                <p>Cześć! Jestem Janek. Od ponad 6 lat łączę cele biznesowe firm z potrzebami użytkowników. Wierzę, że świetny design to nie tylko estetyka, ale przede wszystkim użyteczność, dostępność i rozwiązywanie realnych problemów.</p>
+                <p>Moje podejście opiera się na twardych danych, badaniach użytkowników (UX Research), szybkim prototypowaniu oraz dbałości o każdy detal wizualny w warstwie UI.</p>
+                <a href="#kontakt" class="cta-btn" style="display: inline-block; margin-top: 1rem;">Pobierz CV</a>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-item"><span>✦</span> User Research & Testy</div>
+                <div class="skill-item"><span>✦</span> Wireframing & Prototyping</div>
+                <div class="skill-item"><span>✦</span> UI Design & Design Systems</div>
+                <div class="skill-item"><span>✦</span> Figma, Miro, Protopie</div>
+                <div class="skill-item"><span>✦</span> Interaction Design</div>
+                <div class="skill-item"><span>✦</span> Strategia Produktowa</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sekcja Kontakt -->
+    <section id="kontakt">
+        <h2 class="section-title">Porozmawiajmy o <span>Twoim projekcie</span></h2>
+        <div class="contact-container">
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="name">Twoje Imię</label>
+                    <input type="text" id="name" required placeholder="np. Anna Nowak">
+                </div>
+                <div class="form-group">
+                    <label for="email">Adres E-mail</label>
+                    <input type="email" id="email" required placeholder="anna@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Wiadomość</label>
+                    <textarea id="message" required placeholder="Opowiedz krótko o swoim projekcie..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Wyślij wiadomość</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Stopka -->
+    <footer>
+        <p>&copy; 2026 Jan Kowalski. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <!-- Skrypt JavaScript -->
+    <script>
+        // Prosta obsługa wysyłania formularza (symulacja)
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Dziękuję za wiadomość! Odpowiem najszybciej jak to możliwe.');
+            this.reset();
+        });
+
+        // Płynne podświetlanie aktywnej sekcji w menu podczas przewijania
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= (sectionTop - 200)) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').includes(current)) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
